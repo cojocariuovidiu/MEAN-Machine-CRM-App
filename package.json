@@ -1,0 +1,26 @@
+{
+  "name": "CRM",
+  "version": "1.0.0",
+  "description": "Customer Relations Management Tool",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gd46/MEAN-Machine-CRM-App.git"
+  },
+  "author": "Giuseppe DiBella",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gd46/MEAN-Machine-CRM-App/issues"
+  },
+  "homepage": "https://github.com/gd46/MEAN-Machine-CRM-App",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.12.2",
+    "express": "^4.12.3",
+    "mongoose": "^4.0.1",
+    "morgan": "^1.5.2"
+  }
+}
