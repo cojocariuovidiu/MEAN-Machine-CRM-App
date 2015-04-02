@@ -16,7 +16,7 @@ var express = require('express'), // Call Express
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Configure app to handle CORS requests
+// Configure app to handle CORS(Cross Origin Resource Sharing) requests
 
 app.use(function(req, res, next){
 	res.setHeader('Access-Control-Allow-Origin', '*');
