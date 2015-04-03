@@ -8,6 +8,7 @@ var express = require('express'), // Call Express
 	bodyParser = require('body-parser'), // Get body parser
 	morgan = require('morgan'), // Used to see requests
 	mongoose = require('mongoose'), // For working with Mongo
+	User = require('app/models/user'); // User Model
 	port = process.env.PORT || 8080; // Set port to 8080
 
 // Database Connect ----------------------
