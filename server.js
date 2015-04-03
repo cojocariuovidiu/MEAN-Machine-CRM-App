@@ -10,6 +10,10 @@ var express = require('express'), // Call Express
 	mongoose = require('mongoose'), // For working with Mongo
 	port = process.env.PORT || 8080; // Set port to 8080
 
+// Database Connect ----------------------
+
+mongoose.connect(localhost:27017/myDatabase);
+
 
 // App Configuration ---------------------
 
