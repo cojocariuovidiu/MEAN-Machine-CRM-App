@@ -8,14 +8,20 @@ var express = require('express'), // Call Express
 	bodyParser = require('body-parser'), // Get body parser
 	morgan = require('morgan'), // Used to see requests
 	mongoose = require('mongoose'), // For working with Mongo
-	User = require('app/models/user'); // User Model
+	User = require('./app/models/user'); // User Model
 	port = process.env.PORT || 8080; // Set port to 8080
 
 // Database Connect ----------------------
 
-mongoose.connect(localhost:27017/myDatabase);
+mongoose.connect("localhost:27017/myDatabase");
 
+mongoose.connection.on("connected", function(){
+	console.log("Connected to DB");
+});
 
+mongoose.connection.on("error", function(err){
+	console.log("Mongoose did not connect " + err);
+})
 // App Configuration ---------------------
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -45,6 +51,10 @@ app.get('/', function(req, res){
 
 var apiRouter = express.Router();
 
+app.use(function(req, res, next){
+	console.log("Someone just came to our app");
+	next();
+});
 
 // Test route to make sure everything is working
 // Accessed at GET http://localhost:8080/api
@@ -52,6 +62,50 @@ var apiRouter = express.Router();
 apiRouter.get('/', function(req,res){
 	res.json({ message: 'Welcome to api'});
 });
+
+apiRouter.route('/users')
+
+// create a user (accessed at POST http://localhost:8080/api/users)”
+	.post(function(req, res){
+		//Create a new instance of the user model
+		var user = new User();
+
+		//Set the users information from the request
+		user.name = req.body.name;
+		user.username = req.body.username;
+		user.password = req.body.password;
+
+		//Save the user and check for errors
+		user.save(function(err){
+			if(err){
+				// duplicate entry
+				if(err.code == 11000){
+					return res.json({ success: false, message: 'A user with that username already exists'});
+				} 
+				else{
+					return res.send(err);
+				}
+			} 
+			res.json({ message: "User created"});
+		});
+	})
+// get all the users (accessed at GET http://localhost:8080/api/users)
+	.get(function(req,res){
+		//Query DB for a list of users
+		User.find(function(err, users){
+			if(err){
+				//If error send error
+				res.send(err);
+			} else{
+				//If no error send list of users
+				res.json(users);
+			}
+
+		});
+	});
+
+
+
 
 // More routes for API will go here
 
@@ -62,4 +116,3 @@ app.use('/api', apiRouter);
 
 app.listen(port);
 console.log("Magic happens on port " + port);
-
