@@ -63,6 +63,12 @@ apiRouter.get('/', function(req,res){
 	res.json({ message: 'Welcome to api'});
 });
 
+/*
+* Notes
+* These routes can later be changes to call a controller where the body of these functions
+* would go
+*/
+// All routes related to all users
 apiRouter.route('/users')
 
 // create a user (accessed at POST http://localhost:8080/api/users)”
@@ -103,8 +109,17 @@ apiRouter.route('/users')
 
 		});
 	});
-
-
+// All routes related to individual users
+apiRouter.route('/users/:user_id')
+	.get(function(req,res){
+		User.findById(req.params.user_id, function(err, user){
+			if(err){
+				res.send(err);
+			} else{
+				res.json(user);
+			}
+		});
+	});
 
 
 // More routes for API will go here
