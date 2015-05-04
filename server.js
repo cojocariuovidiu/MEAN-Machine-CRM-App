@@ -8,8 +8,12 @@ var express = require('express'), // Call Express
     bodyParser = require('body-parser'), // Get body parser
     morgan = require('morgan'), // Used to see requests
     mongoose = require('mongoose'), // For working with Mongo
+    jwt = require('jsonwebtoken'), // A way of performing auth
     User = require('./app/models/user'); // User Model
 port = process.env.PORT || 8080; // Set port to 8080
+
+// Token secret
+var superSecret = 'igraduatein2015';
 
 // Database Connect ----------------------
 
@@ -53,6 +57,49 @@ app.get('/', function(req, res) {
 
 var apiRouter = express.Router();
 
+apiRouter.post('/authenticate', function(req, res) {
+    User.findOne({
+        username: req.body.username,
+    }).select('name username password').exec(function(err, user) {
+        if (err) throw err;
+
+        // No user with that user was found
+        if (!user) {
+            res.json({
+                success: false,
+                message: 'Authentication failed. User not found.'
+            });
+        } else if (user) {
+
+            // Check if password matches
+            var validPassword = user.comparePassword(req.body.password);
+            if (!validPassword) {
+                res.json({
+                    success: false,
+                    message: 'Authentication failed. Wrong password.'
+                });
+            } else {
+
+                // If user is found and password is right
+
+                // Create a token
+                var token = jwt.sign({
+                    name: user.name,
+                    username: user.username
+                }, superSecret, {
+                    expiresInMinutes: 1440 // Expires in 24 hours
+                });
+
+                res.json({
+                    success: true,
+                    message: 'Enjoy your token!',
+                    token: token
+                });
+            }
+        }
+    });
+});
+
 app.use(function(req, res, next) {
     console.log("Someone just came to our app");
     next();
@@ -66,6 +113,7 @@ apiRouter.get('/', function(req, res) {
         message: 'Welcome to api'
     });
 });
+
 
 /*
  * Notes
