@@ -243,6 +243,9 @@ apiRouter.route('/users/:user_id')
         })
     })
 
+apiRouter.get('/me', function(req, res) {
+    res.send(req.decoded);
+});
 
 // More routes for API will go here
 
