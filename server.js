@@ -14,6 +14,8 @@ var config = require('./config.js');
 
 var path = require('path');
 
+mongoose.connect(config.database);
+
 mongoose.connection.on("connected", function() {
   console.log("Connected to DB");
 });
@@ -39,8 +41,6 @@ app.use(function(req, res, next) {
 
 app.use(morgan('dev'));
 
-mongoose.connect(config.database);
-
 app.use(express.static(__dirname + '/public'));
 
 // ROUTES FOR OUR API ------------------
@@ -48,26 +48,9 @@ app.use(express.static(__dirname + '/public'));
 var apiRoutes = require('./app/routes/api.js')(app, express);
 app.use('/api', apiRoutes);
 
-app.get('*', function(req, res){
-    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
-
-// Homepage Route
-
-app.get('/', function(req, res) {
-  res.send('Welcome to the homepage');
-});
-
-// apiRouter.get('/me', function(req, res) {
-//   res.send(req.decoded);
-// });
-
-// More routes for API will go here
-
-// REGISTER OUR ROUTES ---------------------
-// All routes will be prefixed with /api
-//app.use('/api', apiRouter);
-
 
 app.listen(config.port);
 console.log("Magic happens on port " + config.port);
