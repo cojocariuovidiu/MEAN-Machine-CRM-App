@@ -55,7 +55,7 @@ module.exports = function(app, express) {
   app.use(function(req, res, next) {
 
     // check header or url parameters or post parameters for token”
-    var token = req.body.token || req.param('token') || req.headers['x-access-toke\n'];
+    var token = req.body.token || req.param('token') || req.headers['x-access-token'];
 
     // decode token
     if (token) {
