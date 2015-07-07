@@ -1,9 +1,13 @@
 angular.module('userApp', [
-  'ngAnimate',
+  // 'ngAnimate',
+  // 'app.routes',
+  // 'authService',
+  // 'mainCtrl',
+  // 'userCtrl',
+  // 'userService',
+
   'app.routes',
   'authService',
   'mainCtrl',
-  'userCtrl',
-  'userService',
-  'ngRoute'
+  'ngAnimate'
 ]);

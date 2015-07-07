@@ -7,7 +7,7 @@ angular.module('app.routes', ['ngRoute'])
 
       .when('/login',{
         templateUrl: 'app/views/pages/login.html',
-        controller: 'mainCtrl',
+        controller: 'mainController',
         controllerAs: 'login'
       })
 
