@@ -45,12 +45,14 @@ app.use(express.static(__dirname + '/public'));
 
 // ROUTES FOR OUR API ------------------
 
-var apiRoutes = require('./app/routes/api.js')(app, express);
-app.use('/api', apiRoutes);
-
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
+
+var apiRoutes = require('./app/routes/api.js')(app, express);
+app.use('/api', apiRoutes);
+
+
 
 app.listen(config.port);
 console.log("Magic happens on port " + config.port);

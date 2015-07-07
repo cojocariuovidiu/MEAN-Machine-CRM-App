@@ -16,7 +16,7 @@ angular.module('authService', [])
 
     return authTokenFactory;
 
-  });
+  })
 
   .factory('Auth', function($http, $q, AuthToken){
     var authFactory = {};
@@ -53,7 +53,7 @@ angular.module('authService', [])
     }
 
     return authFactory;
-  });
+  })
 
   .factory('AuthInterceptor', function($q, $location, AuthToken){
     var interceptorFactory = {};

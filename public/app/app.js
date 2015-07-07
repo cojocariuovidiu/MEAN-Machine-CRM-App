@@ -4,5 +4,6 @@ angular.module('userApp', [
   'authService',
   'mainCtrl',
   'userCtrl',
-  'userService'
+  'userService',
+  'ngRoute'
 ]);
