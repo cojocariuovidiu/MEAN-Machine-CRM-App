@@ -39,7 +39,7 @@ UserSchema.pre('save', function(next){
 	});
 });
 
-UserSchema.methods.comparePassword = 
+UserSchema.methods.comparePassword =
 	function(password){
 		var user = this;
 
