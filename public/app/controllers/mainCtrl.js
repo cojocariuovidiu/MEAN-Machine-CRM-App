@@ -13,8 +13,11 @@ angular.module('mainCtrl', [])
     });
 
     vm.doLogin = function() {
+      vm.processing = true;
+
       Auth.login(vm.loginData.username, vm.loginData.password)
         .success(function(data){
+          vm.processing = false;
           $location.path('/users');
         })
     }
